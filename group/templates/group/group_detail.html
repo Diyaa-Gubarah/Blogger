@@ -10,9 +10,6 @@
       <p class="h6">
          <span class="badge badge-primary badge-pill">{{group.members.count}} <i class="fas fa-user"></i></span>
       </p>
-      <p class="h6">
-        <span class="badge badge-primary badge-pill"><a href="{% url 'post:add_post' group.slug  %}">Greate Post</a></span>
-      </p>
     </div>
     <p class="lead">{{group.description}}</p>
     <medium>
@@ -20,8 +17,11 @@
     </medium>
   </div>
   <li class="list-group-item d-flex justify-content-between align-items-center join">
-    <a class="btn btn-light" href="{% url 'group:group_update' group.slug %}">Update</a>
-    <a class="btn btn-danger" href="{% url 'group:group_delete' group.slug %}">Delete</a>
+    <a class="btn btn-light" href="{% url 'post:add_post' group.slug  %}"><i class="fas fa-plus-circle"></i> Add Post</a>
+    <div class="">
+      <a class="btn btn-light" href="{% url 'group:group_update' group.slug %}"><i class="fas fa-pen"></i></a>
+      <a class="btn btn-danger" href="{% url 'group:group_delete' group.slug %}"><i class="fas fa-trash"></i></a>
+    </div>
   </li>
 </div>
 
@@ -63,4 +63,5 @@
     {% endfor %}
   </div>
 </div>
+
 {% endblock %}
