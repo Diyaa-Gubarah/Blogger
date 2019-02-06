@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="jumbotron">
+  <h1 class="display-4">Thanks for visiting our website</h1>
+  <hr class="my-4">
+  <p>Login or Sign-up for free to get started!</p>
+  <p class="lead">
+    <a class="btn btn-primary" href="{% url 'accounts:login' %}" role="button">Login <i class="fas fa-sign-in-alt"></i></a>
+    <a class="btn btn-info" href="{% url 'accounts:signup' %}" role="button">SignUp</a>
+  </p>
+</div>
+{% endblock %}

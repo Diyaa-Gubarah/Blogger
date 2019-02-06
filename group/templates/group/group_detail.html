@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="list-group-item list-group-item-action flex-column align-items-start ">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ group.name|title }}<br>
+        <small class="text-muted"><i class="far fa-clock"></i> {{ group.created_at|date:"d M Y" }} {{group.created_at|time:"H:i" }}
+        </small>
+      </h5>
+      <p class="h6">
+         <span class="badge badge-primary badge-pill">{{group.members.count}} <i class="fas fa-user"></i></span>
+      </p>
+      <p class="h6">
+        <span class="badge badge-primary badge-pill"><a href="{% url 'post:add_post' group.slug  %}">Greate Post</a></span>
+      </p>
+    </div>
+    <p class="lead">{{group.description}}</p>
+    <medium>
+      <span class="badge badge-primary badge-pill">{{group.current_group_post|length}} Post</span>
+    </medium>
+  </div>
+  <li class="list-group-item d-flex justify-content-between align-items-center join">
+    <a class="btn btn-light" href="{% url 'group:group_update' group.slug %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'group:group_delete' group.slug %}">Delete</a>
+  </li>
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for post in group.current_group_post %}
+    <div class="col-lg-6 mb-4">
+      <div class="card">
+        <ul class="list-group">
+          <a href="{% url 'post:post_detail' post.pk %}" class="list-group-item list-group-item-action flex-column align-items-start ">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ post.title|title }} | <strong>{{ post.group|title }}</strong> <br><small class="text-muted">Create at | {{ post.created_at|date:"d M Y" }} {{ post.created_at|time:"H:i" }}</small></h5>
+
+              <p class="h6"><span class="badge badge-primary badge-pill">{{post.user.username}}</span></p>
+            </div>
+            <p class="lead">{{post.content|truncatechars:200}}</p>
+            <medium><span class="badge badge-primary badge-pill">{{post.like.count}} like</span></medium>
+          </a>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center join">
+            <a class="btn btn-light" href="{% url 'post:post_detail' post.pk %}">View</a>
+            {% if user in post.like.all %}
+            <a class="btn btn-light" href="{% url 'post:dislike_post' post.pk %}"><i class="fas fa-thumbs-up"></i></a>
+            {% else %}
+            <a class="btn btn-light" href="{% url 'post:like_post' post.pk %}"><i class="far fa-thumbs-up"></i></a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% empty %}
+    <div class="jumbotron">
+      <h1 class="display-4">Start by adding post</h1>
+      <hr class="my-4">
+      <p class="lead">
+        <a class="btn btn-primary" href="{% url 'post:add_post' %}" role="button">Greate Post</a>
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+<br>
+<form method="post">
+  {% csrf_token %}
+  <div class="jumbotron">
+    <h1 class="display-4">Delete {{group.name|title}} group</h1>
+    <p class="lead">Are your sure you want to delete {{group.name|title}} group?</p>
+    <hr class="my-4">
+    <p class="lead">
+      <input type="submit" class="btn btn-danger" value="Delete">
+      <a href="{% url 'group:group_detail' group.slug %}" class="btn btn-link">Cancel</a>
+    </p>
+  </div>
+</form>
+{% endblock %}

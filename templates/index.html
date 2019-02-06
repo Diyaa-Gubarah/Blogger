@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to Star Social!</h1>
+  <p class="lead">The best community for all things on outer space!</p>
+  <hr class="my-4">
+  <p>Login or Sign-up for free to get started!</p>
+  <p class="lead">
+    <a class="btn btn-primary" href="{% url 'group:group_list' %}" role="button">Groups</a>
+  </p>
+</div>
+
+{% endblock %}

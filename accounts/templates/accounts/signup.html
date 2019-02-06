@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+<h1 class="display-4">SignUp</h1>
+<br>
+<div class="jumbotron">
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_field form.username show_help=false placeholder='Display name' label='Username'%}
+    {% bootstrap_field form.email show_help=false %}
+    {% bootstrap_field form.password1 %}
+    {% bootstrap_field form.password2 %}
+    <input type="submit" value="Sign Up" class="btn btn-primary">
+  </form>
+</div>
+{% endblock %}

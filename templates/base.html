@@ -1,0 +1,85 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static "/css/master.css" %}">
+  <link rel="stylesheet" href="{% static "/group/css/style_group.css" %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <title>Star Social</title>
+  <title>Star Social</title>
+</head>
+
+<body>
+
+  {# navbar #}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="d-flex flex-grow-1">
+      <span class="w-100 d-lg-none d-block">
+        <!-- hidden spacer to center brand on mobile --></span>
+      <a class="navbar-brand d-none d-lg-inline-block" href="{% url 'home' %}">
+        <img class="navbar-icon" src="{% static 'images/brand.svg' %}" width="40" height="40" alt=""></a>
+      <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+        <img class="navbar-icon" src="{% static 'images/brand.svg' %}" width="40" height="40" alt="">
+      </a>
+      <div class="w-100 text-right">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+      <ul class="navbar-nav ml-auto flex-nowrap">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'post:post_list' %}" class="nav-link m-2 menu-item nav-active">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'admin:index' %}" class="nav-link m-2 menu-item nav-active">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'group:group_list' %}" class="nav-link m-2 menu-item nav-active">Groups</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'group:create_group' %}" class="nav-link m-2 menu-item nav-active"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'accounts:logout' %}" class="nav-link m-2 menu-item nav-active ">Sign out <i class="fas fa-sign-out-alt"></i></a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'accounts:logout' %}" class="nav-link m-2 menu-item nav-active "><i class="far fa-user-circle"></i> <strong>{{user.username|title}}</strong> </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'accounts:signup' %}" class="nav-link m-2 menu-item">Create account</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'accounts:login' %}" class="nav-link m-2 menu-item ">login <i class="fas fa-sign-in-alt"></i></a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+
+</html>
