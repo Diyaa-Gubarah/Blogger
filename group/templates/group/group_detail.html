@@ -24,7 +24,8 @@
     </div>
   </li>
 </div>
-
+<hr class="my-4">
+<p class="h5">Posts</p>
 <div class="container">
   <div class="row">
     {% for post in group.current_group_post %}
@@ -33,9 +34,9 @@
         <ul class="list-group">
           <a href="{% url 'post:post_detail' post.pk %}" class="list-group-item list-group-item-action flex-column align-items-start ">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ post.title|title }} | <strong>{{ post.group|title }}</strong> <br><small class="text-muted">Create at | {{ post.created_at|date:"d M Y" }} {{ post.created_at|time:"H:i" }}</small></h5>
+              <h5 class="mb-1">{{ post.title|title }}</strong> <br><small class="text-muted"><i class="far fa-clock"></i> {{ post.created_at|date:"d M Y" }} {{ post.created_at|time:"H:i" }}</small></h5>
 
-              <p class="h6"><span class="badge badge-primary badge-pill">{{post.user.username}}</span></p>
+              <p class="h6">by <span class="badge badge-primary badge-pill"><i class="fas fa-user"></i> {{post.user.username}}</span></p>
             </div>
             <p class="lead">{{post.content|truncatechars:200}}</p>
             <medium><span class="badge badge-primary badge-pill">{{post.like.count}} like</span></medium>
@@ -46,7 +47,7 @@
             {% if user in post.like.all %}
             <a class="btn btn-light" href="{% url 'post:dislike_post' post.pk %}"><i class="fas fa-thumbs-up"></i></a>
             {% else %}
-            <a class="btn btn-light" href="{% url 'post:like_post' post.pk %}"><i class="far fa-thumbs-up"></i></a>
+            <a class="btn btn-light" href="{% url 'post:like_post' post.pk %}"><i class="far fa-thumbs-up"></i> Like</a>
             {% endif %}
           </li>
         </ul>

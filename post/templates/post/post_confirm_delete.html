@@ -5,8 +5,8 @@
 <form method="post">
   {% csrf_token %}
   <div class="jumbotron">
-    <h1 class="display-4">Delete {{post.title|title}} group</h1>
-    <p class="lead">Are your sure you want to delete {{post.title|title}} group?</p>
+    <h1 class="display-4">Delete {{post.title|title}} post</h1>
+    <p class="lead">Are your sure you want to delete {{post.title|title}} post?</p>
     <hr class="my-4">
     <p class="lead">
       <input type="submit" class="btn btn-danger" value="Delete">

@@ -1,36 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
 <br>
-{% for group in groups %}
-<div class="card">
-  <ul class="list-group">
-    <a href="{% url 'group:group_detail' group.slug %}" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ group.name|title }}<br><small class="text-muted"><i class="far fa-clock"></i> {{ group.created_at|date:"d M Y" }} {{ group.created_at|time:"H:i" }}</small></h5>
-
-        <p class="h6"><span class="badge badge-primary badge-pill">{{group.members.count}} <i class="fas fa-user"></i></span></p>
-      </div>
-      <p class="lead">{{group.description|truncatechars:200}}</p>
-      <medium><span class="badge badge-primary badge-pill">{{group.current_group_post|length}} Post</span></medium>
-
-    </a>
-
-    <li class="list-group-item d-flex justify-content-between align-items-center join">
-      {% if user in group.members.all %}
-      <a class="btn btn-danger" href="{% url 'group:left_group' group.slug %}"><i class="fas fa-user-times"></i> Left</a>
-      {% else %}
-      <a class="btn btn-light" href="{% url 'group:join_group' group.slug %}"><i class="fas fa-user-plus"></i> Join</a>
-      {% endif %}
-    </li>
-  </ul>
-</div>
-{% empty %}
 <div class="jumbotron">
-  <h1 class="display-4">Start by adding group</h1>
+  <h1 class="display-4">Welcome to Star Social Groups</h1>
   <hr class="my-4">
-  <p class="lead">
-    <a class="btn btn-primary" href="{% url 'group:create_group' %}" role="button">Greate Group</a>
-  </p>
+  <p><strong>+Join</strong> to any group & share your post with worlds!</p>
 </div>
-{% endfor %}
+<div class="container">
+  <div class="row">
+    {% for group in groups %}
+    <div class="col-lg-6 mb-4">
+      <div class="card">
+        <ul class="list-group">
+          <a href="{% url 'group:group_detail' group.slug %}" class="list-group-item list-group-item-action flex-column align-items-start ">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ group.name|title }}<br><small class="text-muted"><i class="far fa-clock"></i> {{ group.created_at|date:"d M Y" }} {{ group.created_at|time:"H:i" }}</small></h5>
+
+              <p class="h6"><span class="badge badge-primary badge-pill">{{group.members.count}} <i class="fas fa-user"></i></span></p>
+            </div>
+            <p class="lead">{{group.description|truncatechars:200}}</p>
+            <medium><span class="badge badge-primary badge-pill">{{group.current_group_post|length}} Post</span></medium>
+
+          </a>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center join">
+            {% if user in group.members.all %}
+            <a class="btn btn-danger" href="{% url 'group:left_group' group.slug %}"><i class="fas fa-user-times"></i> Left</a>
+            {% else %}
+            <a class="btn btn-light" href="{% url 'group:join_group' group.slug %}"><i class="fas fa-user-plus"></i> Join</a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% empty %}
+    <div class="jumbotron">
+      <h1 class="display-4">Start by adding group</h1>
+      <hr class="my-4">
+      <p class="lead">
+        <a class="btn btn-primary" href="{% url 'group:create_group' %}" role="button">Greate Group</a>
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
