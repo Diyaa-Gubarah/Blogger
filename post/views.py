@@ -59,6 +59,14 @@ class PostDetail(LoginRequiredMixin, generic.DetailView):
     model = Post
     queryset = Post.objects.all()
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PostDetail, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['interacting_users'] = Like.objects.filter(post__id=self.kwargs.get("pk")).order_by('user__username')
+        return context
+
+
 
 class UpdatePost(LoginRequiredMixin, generic.UpdateView):
     model = Post

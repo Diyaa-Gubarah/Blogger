@@ -4,8 +4,8 @@
 <div class="jumbotron">
   <h1 class="display-4">Welcome to Star Social Groups</h1>
   <hr class="my-4">
-  <p><strong>+Join</strong> to any group & share your post with worlds!</p>
 </div>
+
 <div class="container">
   <div class="row">
     {% for group in groups %}
@@ -35,7 +35,7 @@
     </div>
     {% empty %}
     <div class="container">
-      <p class="lead">Start adding group</p>
+      <h1 class="display-4">Start add group</h1>
       <hr class="my-4">
       <p class="lead">
         <a class="btn btn-primary" href="{% url 'group:create_group' %}" role="button">Greate Group</a>

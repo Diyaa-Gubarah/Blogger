@@ -53,7 +53,7 @@ class Membership(models.Model):
         User, related_name='group_member', on_delete=models.CASCADE)
     group = models.ForeignKey(
         Group, related_name="memberships", on_delete=models.CASCADE)
-    date_joined = models.DateField(auto_now=True)
+    date_joined = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{} who is member in {}'.format(self.user.username,self.group.name)

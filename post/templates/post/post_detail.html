@@ -6,10 +6,13 @@
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ post.title|title }} Post</strong> <br><small class="text-muted"><i class="far fa-clock"></i> {{ post.created_at|date:"d M Y" }} {{ post.created_at|time:"H:i" }}</small></h5>
 
-        <p class="h6">Published by <span class="badge badge-primary badge-pill"><i class="fas fa-user"></i> {{post.user.username}}</span></p>
+        <p class="h6">by <span class="badge badge-primary badge-pill"><i class="fas fa-user"></i> {{post.user.username|title}}</span></p>
       </div>
       <p class="lead">{{post.content}}</p>
-      <medium><span class="badge badge-primary badge-pill">{{post.like.count}} like</span></medium>
+      <medium><span class="badge badge-primary badge-pill">
+          <span class="badge badge-light">{{post.like.count}}</span> Likes
+        </span></medium>
+
     </a>
 
     <li class="list-group-item d-flex justify-content-between align-items-center join">
@@ -25,4 +28,16 @@
     </li>
   </ul>
 </div>
-{% endblock %}
+
+<div class="container">
+  <medium>Likes by:
+    {% for user in interacting_users %}
+    <span class="badge badge-secondary">
+      <a class="interacting-users" href="#">{{user.user.username|title}}</a>
+    </span>
+    {% empty %}
+    no Interacting Users
+    {% endfor %}
+  </medium>
+</div>
+  {% endblock %}

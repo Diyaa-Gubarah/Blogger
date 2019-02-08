@@ -8,7 +8,7 @@
         </small>
       </h5>
       <p class="h6">
-         <span class="badge badge-primary badge-pill">{{group.members.count}} <i class="fas fa-user"></i></span>
+        <span class="badge badge-primary badge-pill">{{group.members.count}} <i class="fas fa-user"></i></span>
       </p>
     </div>
     <p class="lead">{{group.description}}</p>
@@ -24,8 +24,33 @@
     </div>
   </li>
 </div>
+
+<p class="lead">Members</p>
+<div class="container">
+  <div class="row">
+    {% for member in group_members %}
+    <div class="col-lg-6 mb-4">
+
+      <li class="list-group-item">
+        <span class="badge badge-secondary">{{member.user.username|title}}
+        </span>
+         Join at
+        <span class="badge badge-info">{{member.date_joined|date:"d M Y"}}
+        </span>
+        on
+        <span class="badge badge-info">{{member.date_joined|time:"H:i"}}
+        </span>
+      </li>
+    </div>
+    {% empty %}
+    No members!
+    {% endfor %}
+  </div>
+</div>
+
+
 <hr class="my-4">
-<p class="h5">Posts</p>
+<p class="lead">Posts</p>
 <div class="container">
   <div class="row">
     {% for post in group.current_group_post %}

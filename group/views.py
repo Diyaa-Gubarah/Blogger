@@ -37,6 +37,13 @@ class GroupDetail(LoginRequiredMixin, generic.DetailView):
     model = Group
     queryset = Group.objects.all()
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(GroupDetail, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['group_members'] = Membership.objects.filter(group__slug=self.kwargs.get("slug")).order_by('-date_joined')
+        return context
+
 
 class JoinGroup(LoginRequiredMixin, generic.RedirectView):
 
