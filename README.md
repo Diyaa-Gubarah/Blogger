@@ -11,7 +11,7 @@ A space-related website where you can create groups on different topics about sp
 
 ##### Some notes
 * For now any one can add new group and delete any group but I will add more permission in the future.
-* To add post to group you must **Join** to that group if not a message appear to tell you. "** *you don't have permission to post in this group* **".
+* To add post to group you must **Join** to that group if not a message appear to tell you.  *you don't have permission to post in this group*.
 * This is a project for learning purposes only.
 
-* You can see live website here [Space Blogger ](boshi.pythonanywhere.com).
+* You can see live website here [Space Blogger ](http://boshi.pythonanywhere.com).
