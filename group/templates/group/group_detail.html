@@ -64,7 +64,14 @@
               <p class="h6">by <span class="badge badge-primary badge-pill"><i class="fas fa-user"></i> {{post.user.username}}</span></p>
             </div>
             <p class="lead">{{post.content|truncatechars:200}}</p>
-            <medium><span class="badge badge-primary badge-pill">{{post.like.count}} like</span></medium>
+            <medium>
+              <span class="badge badge-primary badge-pill">
+                <span class="badge badge-light">{{post.like.count}}</span> Likes
+              </span>
+              <span class="badge badge-primary badge-pill">
+                <span class="badge badge-light">{{post.post_comments.count}}</span> Comments
+              </span>
+            </medium>
           </a>
 
           <li class="list-group-item d-flex justify-content-between align-items-center join">

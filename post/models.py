@@ -22,6 +22,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("post:post_detail", kwargs={"pk": self.pk})
 
+    def post_comments(self):
+        """return number of comment for current post"""
+        return self.comments.filter(post__id=self.pk) # comments comes from related_name inside Comment Model
+
     def __str__(self):
         return '{} post'.format(self.title)
 
@@ -59,3 +63,20 @@ class Like(models.Model):
            ("add_like_to_post", "Can add like to post"),
            ("remove_like", "Can remove like from post"),
        )
+
+class Comment(models.Model):
+   """ Comment Table Fields """
+   post = models.ForeignKey(
+       Post,on_delete=models.CASCADE, related_name='comments')
+
+   comment_auther = models.CharField(max_length=200)
+   comment_text = models.TextField(max_length=500, blank=False)
+   comment_create_date = models.DateTimeField(auto_now=True)
+
+   # used by createview
+   def get_absolute_url(self):
+       return reverse("post:post_detail", kwargs={"pk": self.post.pk})
+
+
+   def __str__(self):
+       return 'this comment wrote by: %s, in the : %s post' % (self.comment_auther, self.post)

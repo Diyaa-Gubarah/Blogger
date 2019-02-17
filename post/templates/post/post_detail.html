@@ -9,19 +9,29 @@
         <p class="h6">by <span class="badge badge-primary badge-pill"><i class="fas fa-user"></i> {{post.user.username|title}}</span></p>
       </div>
       <p class="lead">{{post.content}}</p>
-      <medium><span class="badge badge-primary badge-pill">
+      <medium>
+        <span class="badge badge-primary badge-pill">
           <span class="badge badge-light">{{post.like.count}}</span> Likes
-        </span></medium>
+        </span>
+        <span class="badge badge-primary badge-pill">
+          <span class="badge badge-light">{{post.post_comments.count}}</span> Comments
+        </span>
+      </medium>
 
     </a>
 
     <li class="list-group-item d-flex justify-content-between align-items-center join">
-      {% if user in post.like.all %}
-      <a class="btn btn-light" href="{% url 'post:dislike_post' post.pk %}"><i class="fas fa-thumbs-up"></i></a>
-      {% else %}
-      <a class="btn btn-light" href="{% url 'post:like_post' post.pk %}"><i class="far fa-thumbs-up"></i> Like</a>
-      {% endif %}
-      <div class="">
+      <div>
+        {% if user in post.like.all %}
+        <a class="btn btn-light" href="{% url 'post:dislike_post' post.pk %}"><i class="fas fa-thumbs-up"></i></a>
+        {% else %}
+        <a class="btn btn-light" href="{% url 'post:like_post' post.pk %}"><i class="far fa-thumbs-up"></i></a>
+        {% endif %}
+        <a class="btn btn-light" href="{% url 'post:create_comment' post.pk %}"><i class="fas fa-plus-circle"></i> Comment
+        </a>
+      </div>
+
+      <div>
         <a class="btn btn-light" href="{% url 'post:post_update' post.pk %}"><i class="fas fa-pen"></i></a>
         <a class="btn btn-danger" href="{% url 'post:post_delete' post.pk %}"><i class="fas fa-trash"></i></a>
       </div>
@@ -30,7 +40,7 @@
 </div>
 
 <div class="container">
-  <medium>Likes by:
+  <medium>Like by
     {% for user in interacting_users %}
     <span class="badge badge-secondary">
       <a class="interacting-users" href="#">{{user.user.username|title}}</a>
@@ -39,5 +49,21 @@
     no Interacting Users
     {% endfor %}
   </medium>
+  <hr>
+
+  <p class="lead"><strong>Comments: </strong></p>
+  {% for comment in post.post_comments %}
+
+  <div class="container">
+    <h5>{{comment.comment_text}} <small> by {{comment.comment_auther}}</small>
+      <a class="btn btn-info" href="{% url 'post:update_comment' comment.pk %}"><i class="fas fa-edit"></i>
+      </a>
+      <a class="btn btn-danger" href="{% url 'post:delete_comment' comment.pk %}"><i class="fas fa-trash-alt"></i>
+      </a>
+    </h5>
+  </div>
+  {% empty%}
+  <p class="lead">no comments!</p>
+  {% endfor%}
 </div>
-  {% endblock %}
+{% endblock %}
