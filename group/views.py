@@ -6,6 +6,12 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from group.models import (Group, Membership)
 
+from rest_framework import filters, status, viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+from .serializers import GroupSerializer,MembershipSerializer
+
 User = get_user_model()
 # Create your views here.
 
@@ -94,3 +100,21 @@ class LeaveGroup(LoginRequiredMixin, generic.RedirectView):
             current_user_membership.delete()
             print("You have successfully left {} group.".format(self.kwargs.get("slug")))
         return super(LeaveGroup, self).get(request, *args, **kwargs)
+
+
+# serializers views
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing users.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    authentication_classes = (TokenAuthentication,)
+
+class MembershipViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing users.
+    """
+    queryset = Membership.objects.all()
+    serializer_class = MembershipSerializer
+    authentication_classes = (TokenAuthentication,)
