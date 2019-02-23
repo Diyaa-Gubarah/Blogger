@@ -14,4 +14,3 @@ class MembershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Membership
         fields = ('pk','user', 'group', 'date_joined')
-        depth = 1
