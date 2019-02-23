@@ -19,6 +19,8 @@ class Post(models.Model):
     like = models.ManyToManyField(User, through="Like")
 
 
+
+
     def get_absolute_url(self):
         return reverse("post:post_detail", kwargs={"pk": self.pk})
 

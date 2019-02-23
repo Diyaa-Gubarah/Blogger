@@ -13,6 +13,13 @@ from group.models import Group, Membership
 from post.forms import CreatePostForm,CommentForm
 from post.models import Comment, Like, Post
 
+from rest_framework import filters, status, viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+
+from .serializers import PostSerializer,CommentSerializer,LikeSerializer
+
 # Create your views here.
 
 
@@ -120,3 +127,28 @@ def CommentDelete(request, pk):
     post_pk = comment.post.pk
     comment.delete()
     return redirect('post:post_detail', pk=post_pk)
+
+# serializers views
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing post.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    authentication_classes = (TokenAuthentication,)
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing comments.
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    authentication_classes = (TokenAuthentication,)
+
+class LikeViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing likes.
+    """
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    authentication_classes = (TokenAuthentication,)

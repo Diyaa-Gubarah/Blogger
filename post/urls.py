@@ -1,6 +1,13 @@
-from django.conf.urls import url
+from django.conf.urls import url,include
 
 from . import views
+
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register(r'api/posts', views.PostViewSet)
+router.register(r'api/comments', views.CommentViewSet)
+router.register(r'api/likes', views.LikeViewSet)
 
 app_name = 'post'
 
@@ -23,5 +30,8 @@ urlpatterns = [
         views.CommentUpdate.as_view(), name='update_comment'),
     url(r'^comment/(?P<pk>[0-9]+)/delete/$',
         views.CommentDelete, name='delete_comment'),
+
+    url('', include(router.urls)),
+    url('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ]
